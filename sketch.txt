@@ -873,6 +873,8 @@ if (!Auth::guard('admin')->attempt($this->only('password','email'))) {
   Auth::login();
 }
 
+$authors = Author::with('detail')->get();
+
 public function detail(): HasOne {
   return $this->hasOne(AuthorDetail::class);
 }
@@ -888,3 +890,7 @@ getline
 http
 
 s a make:component ErrorMessage
+
+$books = Book::with(['authors','detail']);
+
+$authors = Author::with('detail')->get()
