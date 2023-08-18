@@ -1,0 +1,890 @@
+public function books(): HasMany {
+  return $this->hasMany(Book::class);
+}
+public function category(): BelongsTo {
+  return $this->belongsTo(Category::class);
+}
+
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class);
+}
+public function books(): BelongsToMany {
+  return $this->BelongsToMany(Book::class);
+}
+
+public function detail(): hasOne {
+  return $this->hasOne(AuthorDetail::class);
+}
+public function author(): belongsTo {
+  return $this->belongsTo(Author::class);
+}
+protected $primaryKey = 'author_id';
+親情報を取得するときに、小情報を取得する、N+1問題を回避する
+$authors = Author::with('detail')->get();
+$books = Book::with(['authors', 'category'])->get;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+protected $primaryKey = 'author_id';
+
+
+public function books(): HasMany {
+  return $this->hasMany(Book::class);
+}
+public function category(): BelongsTo {
+  return $this->belongsTo(Category::class);
+}
+
+public function books(): BelongsToMany {
+  return $this->belongsToMany(Book::class);
+}
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class);
+
+
+
+
+
+
+
+
+
+
+
+}
+$authors = Author::with('detail')->get();
+
+
+$books = Book::with(['authors', 'category'])->get();
+
+
+
+
+
+親情報を取得するときに、小情報を取得し、N+1問題を避ける
+
+
+
+public function detail(): HasOne {
+  return $this->hasOne(AuthorDetail::class);
+}
+public function author(): BelongsTo {
+  return $this->belongsToMany(Author::class);
+}
+
+
+
+
+
+
+
+->whereNumber('id')->name('book.show');
+public function create(): View {
+  $categories = Category::all();
+  return view('admin.book.create',[
+    'categories' => $categories;
+  ]);
+}
+
+public function rules(): array {
+  return [
+    'category_id' => 'required|exists:categories,id',
+    'title' => 'required|unique:books|max:100',
+    'price' => 'numeric|min:1|max:99999',
+  ]
+}
+public function store(BookPostRequest $request) {
+
+}
+$errors
+@if ($errors->any())
+  @foreach($errors->all() as $error)
+    <p>{{ $error }}</p>
+  @endforeach
+@endif
+
+public function store(Request $request):Book {
+  $book = new Book();
+  $book->category_id = $request->category_id;
+  $book->title = $request->title;
+  $book->price = $request->price;
+  $book->save();
+  return $book;
+}
+s a make:request BookPostRequest
+
+
+
+
+public function show(string $id): Book {
+  $book = Book::findOrFail($id);
+  return $book;
+}
+Route::get('admin/book/{id}',[BookContoller::class, 'show']);
+
+->whereNumber('id')->name('book.show');
+
+public function create():View {
+  $categories = Category::all();
+  return view('admin.book.create',[
+    'categories' => $categories,
+  ]);
+}
+public function store(BookPostRequest $request):Book {
+  $book = new Book();
+  $book->category_id = $request->category_id;
+  $book->title = $request->title;
+  $book->price = $request->price;
+  $book->save();
+
+  return $book;
+}
+
+public function rules(): array {
+  return [
+    'category_id' => 'required|exists:categories,id',
+    'title' => 'required|unique:books|max:100',
+    'price' => 'numeric|min:1|max:99999',
+  ];
+}
+$errors
+@if ($errors->any())
+  @foreach ($errors->all as $error)
+    <p>{{ $error }}</p>
+  @endforeach
+@endif
+
+
+
+
+
+public function detail(): HasOne {
+  return $this->hasOne(AuthorDetail::class)->withTimestamps();
+}
+public function author(): BelongsTo {
+  return $this->belongsTo(Author::class)->withTimestamps();
+}
+
+Route::get('admin/book/{id}', [BookContoller::class, 'show'])->whereNumber('id')->name('book.show');
+
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class)->withTimestamps();
+}
+public function books(): BelongsToMany {
+  return $this->belongsToMany(Book::class)->withTimestamps();
+}
+s a db:seed --class=CategoriesTableSeeder
+s a make:seeder CategoriesTableSeeder
+
+s a make:factory AuthorDetail
+definition() {
+  return [
+    'author_id' => Author::factory(),
+    'email' => fake()->unique()->safeEmail(),
+    'address' => fake()->address(),
+  ];
+}
+run() {
+  AuthorDetail::factory(3)->create();
+}
+DB $this->call()
+s a db:seed
+
+protected $primaryKey = 'author_id';
+
+Route::get('admin/book/{id}',[BookContoller::class, 'show'])->whereNumber('id')->name('book.show');
+
+public function show(string $id): Book {
+  $book = Book:find($id);
+  return $book;
+}
+
+public function books():BelongsToMany {
+  return $this->belongsToMany(Book::class)->withTimestamps();
+}
+public function category(): HasMany {
+  return $this->hasMany(Category::class)->withTimestamps();
+}
+$books = Book::with(['authors','category'])->get()
+
+s a migrate:refresh --seed
+
+public function books(): BelongsToMany {
+  return $this->belongsToMany(Book::class)->withTimestamps();
+}
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class)->withTimestamps()
+}
+
+s a make:seeder CategoriesTableSeeder
+
+definition() {
+  return [
+    'title' => fake()->realText(50),
+  ];
+}
+
+DB初期値を設定、テストデータ追加
+
+デザインパターンのひとつ、再利用性、テストのしやすさ。
+依存しているその実態をしらなくても動くので、中に注入してやる依存の実態を変えてやると挙動をかえることができる。
+結合度を下げる
+
+public function store(Request $request): Book {
+  $book = new Book();
+  $book->category_id = $request->category_id;
+  $book->title = $request->title;
+  $book->price = $request->price;
+  $book->save();
+  return $book;
+}
+
+
+PHPにおいて第一引数よりも第2引数が大きいときは、負、逆は正、等しいときは０を返す
+function ($a,$b) {
+  return $a < $b : -1 : 1;
+}
+
+public function books(): HasMany {
+  return $this->hasMany(Book::class)->withTimestamps()
+}
+public function category(): BelongsTo {
+  return $this->belongsTo
+}
+
+
+
+
+
+
+
+
+s a make:migration create_message_table --create=messages
+
+
+$authors = Author::where('details')->get();
+
+S.at(i)
+
+public function books(): HasMany {
+  return $this->hasMany(Book::class)->withTimestamps();
+}
+public function category(): BelongsTo {
+  return $this->belongsTo(Category::class)->withTimestamps();
+}
+
+s a make:seeder CategoriesTableSeeder
+
+親のテーブルを取得するときに、同時に小テーブルも取得することでN+1問題を解消する
+
+
+10^9
+
+public function authors():BelongsToMany {
+  return $this->belongsToMany(Author::class);
+}
+$errors
+@if ($errors->any())
+  @foreach ($errors->all() as $error)
+    <p>{{ $error }}</p>
+  @endforeach
+@endif
+
+
+old helper
+value="{{ old('title') }}"
+
+public function store(BookPostRequest $request)
+
+public function create(): View {
+
+  $categories = Category::all();
+  return view('admin.book.create', [
+    'categories' => $categories,
+  ]);
+}
+
+s a make:migration create_message_table --create=messages
+
+public function store(): RedirectResponse {
+
+  return redirect(route('book.index'));
+}
+foreach (array as element)
+
+return redirect(route('book.index'))->with('message', $book->title . 'wotourokusimasita');
+
+['nanka' => fake()->randomDigit()]
+
+s a make:conponent ErrorMessages
+
+rules() {
+  return [
+    'category_id' => 'required|exists:categories,id',
+    'title' => 'required|unique:books|max:100',
+    'price' => 'numeric|min:1|max:99999',
+  ]
+}
+
+s a make:conponent BookTable --view
+up()
+Schema::create(function(Blueprint $table) {
+  $table->id();
+  $table->string('title', 100);
+  $table->string('author',50);
+  $table->interger('price');
+  $table->foreginId('category_id')->constrained();
+  $table->timeStamps();
+});
+
+attach()
+
+$books = Book::all();
+$authors = Author::all();
+foreach ($books as $book) {
+  $authorIds = $authors->random(2)->pluck('id')->all();
+  $book->authors()->attach($authorIds);
+}
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class);
+}
+
+value="{{ old('title') }}"
+
+public function create(): View {
+  $categories = Category::all()
+
+  return view('admin.book.create', [
+    'categories' => $categories,
+  ]);
+}
+
+public function store(BookPostRequest $request): RedirectResponse {
+
+  return redirect(route('book.index'))->with('messages', $book->title . 'wotourokusimasita');
+}
+
+$books = Book::with(['authors', 'category'])->get()
+
+s a make:conponent ErrorMessages
+
+s a make:conponent BookTable --view
+
+public function show(Book $book): View {
+
+  return view('admin.book.show', compact('book'));
+}
+
+<a href="{{ route('book.show', $book) }}">
+{{ $book->title }}
+</a>
+
+public function show(Book $book): View {
+  return view('admin.book.show', compact('book'));
+}
+
+<a href="{{ route('book.show', $book) }}">
+{{ $book->title }}
+</a>+
+
+
+
+s a db:seed --class=targetSeeder
+
+
+
+public function show(Book $book) {
+  return view('book.index', compact('book'));
+}
+
+if (guard('admin')->attempt($this->only('login_id','password'))) {
+  Auth::login();
+}
+Auth::guard('admin')->attempt()
+
+if (! Auth::guard('admin')->attempt($this->only('login_id','password'))) {
+  throw 失敗
+}
+
+->middleware('guest:admin')
+->middleware('guest:admin')
+->middleware('auth:admin');
+
+if (is('admin/*')) {
+  return redirect(route('admin.create'));
+}
+return view('admin.book.show',compact('book'));
+
+if (! Auth::attach($this->only('login_id','password'))) {
+  throw Exception
+}
+Auth::login();
+
+if (!Auth::guard('admin')->attempt($this->only('login_id','password)))
+
+->middleware('guest:admin')
+->middleware('auth:admin');
+
+if (is('admin/*')) {
+  return redirect(route('admin.create'));
+}
+
+protected function redirectTo(Request $request): ?string {
+  if (!$request->expectsJson()) {
+    if ($request->is('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login')
+  }
+}
+if (!Auth::guard('admin')->attempt($this->only('login_id','password'))) {
+
+}
+
+protected function redirectTo() {
+  if (!$request->expectsJson) {
+    if ($request->is('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login');
+  }
+
+}
+public function books(): HasMany {
+  return $this->hasMany(Book::class);
+}
+public function category(): BelongsTo {
+  return $this->belongsTo(Category::class);
+}
+
+attach
+
+$books = Book::all();
+$authors = Author::all();
+foreach ($books as $book) {
+  $authorIds = $authors->random(2)->pluck('id')->all();
+  $book->authors()->attach($authorIds);
+}
+
+public function books(): BelongsToMany {
+  return $this->belongsToMany(Book::class)->withTimestamps();
+}
+
+public function show(Book $book): View {
+  return view('admin.book.show', compact('book'));
+}
+
+s a make:factory AuthorFactory
+
+definition() {
+  return [
+    'name' => fake()->name(),
+  ];
+}
+
+run() {
+  Author::factory(3)->create();
+}
+
+run() {
+  $this->call(AuthorTableSeeder::class);
+}
+s a db:seed
+
+s a make:seeder CategoriesTableSeeder
+
+'hoge' => fake()->realText(50);
+s a make:migration create_message_table --create=messages
+oldvalue
+
+value="{{ old('title') }}"
+
+if (!$request->expectsJson()) {
+  if ($request->is('admin/*')) {
+    return route('admin.create');
+  }
+  return route('login');
+}
+
+public function store(Book $book) {
+  return redirect('book.index',compact('book'));
+}
+s a migrate:refresh --seed
+
+->middleware('guest:admin')
+->middleware('auth:admin');
+
+$books = Book::with('authors','category')->get();
+['','']
+
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class);
+}
+
+use \App\Models\Category;
+$category = new Category();
+$category = Category::find(1);
+$category->title = 'design';
+$category->save();
+$category = Category::findOrFail(2);
+$categories = Category::all();
+$category = Category::where('title', '=','programming')->get();
+$category->update();
+$category->delete();
+
+if (!Auth::guard('admin')->attempt($this->only('login_id','password'))) {
+
+}
+protected $primaryKey = 'author_id';
+
+<a href="{{ route('book.show', $book) }}">
+{{$book->title}}
+</a>
+
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class);
+}
+
+$authors = Author::with('detail')->get();
+public function create(): View {
+  $categories = Category::all();
+
+  return view('admin.book.create', [
+    'categories' => $categories
+  ]);
+}
+
+s a make:factory AuthorDetailFactory
+
+public function definition() {
+  return [
+    'author_id' => Author::factory(),
+    'email' => fake()->unique()->safeEmail(),
+    'address' => fake()->address(),
+  ];
+}
+public function run() {
+  AuthorDetail::factory(3)->create();
+}
+$this->call(AuthorTableSeeder::class);
+
+
+s a db:seed
+
+public function show(string $id): Book {
+  $book = Book::findOrFail($id);
+
+  return $book;
+}
+
+route::get('admin/book/{id}', [BookContoller::class, 'show'])->whereNumber('id')->route('book.show');
+
+ブロックボックスに影響与えない
+インラインコンテンツ、テキストに影響与えない
+
+s a make:request BookPostRequest
+
+return redirect(route('book.index'))->with('messages',
+$book->title . 'を保存した');
+public function detail(): HasOne {
+  return $this->hasOne(AuthorDetail::class);
+}
+public function author(): BelongsTo {
+  return $this->belongsTo(Author::class);
+}
+上下のボックス　テキストに
+
+s a make:conponent BookTable --view
+public function show(Book $book): View {
+  return view('admin.book.show, compact('book'));
+}
+['book' => $book];
+
+s a make:conponent ErrorMessages
+
+上下のボックス、テキストに影響を与えない
+表示位置に
+
+$books = Book::all();
+$authors = Author::all();
+foreach ($books as $book) {
+  $author_ids = $authors->random(2)->pluck('id')->all();
+  $book->authors()->attach($author_ids);
+}
+public function store(Request $request) {
+  $book = new Book();
+  $book->category_id = $request->category_id;
+  $book->title = $request->title;
+  $book->price = $request->price;
+
+  $book->save()
+  return $book;
+}
+if (! Auth::guard('admin')->attach($this->only('login_id','password'))) {
+  if ($request->is('admin/*')) {
+    return redirect(route('admin.create'));
+  }
+  return redirect('login');
+}
+
+public function show(Book $book) {
+  return view('admin.book.show', compact('book'));
+}
+
+if ($a < $b) {
+  return -1; //$a よりも$bのが大きい
+} else {
+  return 1; $aのが$bより大きい
+}
+
+ダミーデータ、テストデータを簡単に挿入できる
+
+$errors
+@if ($errors->any())
+
+@endif
+初期化、テストデータ
+->middleware('guest:admin')
+->middleware('auth:admin')
+
+public function store(Request $request): RedirectResponse {
+
+  $book = new Book();
+
+  return redirect(route('book.index'))->with('message', $book->title . 'を登録しました');
+}
+s a route:list
+
+public function books(): HasMany {
+  return $this->hasMany(Book::class)->withTimestamps();
+}
+public function category(): BelongsTo {
+  return $this->belongsTo(Category::class)->withTimestamps();
+}
+
+$books = Book::with(['authors','category'])->get();
+
+インスタンス化しなくてもメソッド呼び出せる。
+呼び出しがシンプルんある。内部でインスタンス化してくれる
+
+$index = array_search($array, $value);
+array_search($needle,$haystack,)
+
+$request->is('admin/*') {
+  return redirect(route('admin.create'));
+}
+return redirect('login');.size()
+
+$str[0]
+substr($s,0,1)
+
+上下のボックスとテキストに影響を与えない
+
+for ($i = 0; $i < (1 << 3); $i++) {
+  処理
+}
+
+ｓーダーファイル作成
+DatabaseSeederに登録
+シーディング
+attach
+
+$books = Book::all();
+$authors = Author::all();
+foreach ($books as $book) {
+  $authorIds = $authors->random(2)->pluck('id')->all();
+  $book->author()->attach($authorIds);
+}
+
+str_repeat('m',times);
+
+public function books(): BelongsToMany {
+  return $this->belongsToMany(Author::class);
+}
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Author::class);
+}
+
+デザインパターンのひとつ、再利用性、テストのしやすさ。
+依存している先の実態をしらなくても機能できる。
+
+s a make:controller BookController
+
+public function definition() {
+  return [
+    'email' => fake()->safeEmail(),
+  ];
+}
+
+N+1問題を避けるために、一度に情報を取得する。
+親情報を取るときに小情報も取得する
+DatabaseSeederに登録 $this->call()
+
+s a make:factory AuthorFactory
+
+public function definition() {
+  return [
+    'name' => fake()->name(),
+  ];
+}
+AuthorsTableSeeder run()
+
+Author::factory(3)->create();
+
+DatabaseSeederにAuthorsTableSeederを登録
+s a db:seed
+
+s a make:seeder ~Seeder
+s a migrate:rollback
+
+Schema::create
+
+$table->string('title',100);
+
+$table->foreginId('category_id')->constrained()
+
+s a make:migration create_message_table --create=messages
+
+public function books() {
+  return $this->belongsToMany(Book::class)->withTimestamps();
+}
+
+value="{{ old('title') }}"
+
+Schema::table
+up() $table->dropColumn('author');
+
+
+down() $table->string('author', 100);
+
+s a make:seeder CategoriesTableSeeder
+マイグレーション
+モデル
+コントローラー
+ルート
+ビュー
+
+Schema::create('books', function (Blueprint $table) {
+  $table->id();
+  $table->string('title',100);
+  $table->string('author', 50);
+  $table->interger('price');
+  $table->foreignId('category_id')->constrained();
+  $table->timeStamps();
+});
+
+s a make:factory AuthorFactory
+
+$category = new Category();
+$category->title = 'design';
+$category->save();
+
+$category = Category::find(1);
+$categories = Category::all();
+$category = Category::where('title' ,'=', 'programming' )->get();
+
+$category->update();
+$category->delete();
+
+Route::get('messages', [MessageController::class, 'index']);
+->whereNumber('id')->name('book.show');
+
+return redirect(route('book.index'))->with('message', $book->title . 'を登録');
+s a db:seed
+
+public function rules(): array {
+  return [
+    'category_id' => 'required|exists:categories,id',
+    'title' => 'required|uniq:books|max:100',
+    'price' => 'numeric|min:1|max:99999',
+   ];
+}
+<a href="{{ route('book.show', ['id' => $book->id]) }}">
+  {{ $book->title }}
+</a>
+
+文字列処理とうして、画面のコードを新pる
+
+s a make:model Message
+
+s a db:seed --class=specifiedSeeder
+
+s a migrate
+
+public function show(Book $book) {
+  return view('admin.book.show', compact('book'))
+}
+public function create(): View {
+  $categories = Category::all();
+  return view('admin.book.create', compact('categories));
+}
+
+return [
+  'number' => fake()->randomDigit(),
+  'text' => fake()->realText(50),
+];
+
+explode(" ", $string);
+array_chunk($array, $num);
+
+s arti make:component BookTable --view
+public function store(BookPostRequest $request) {
+
+}
+
+public function redirectTo() {
+  if (! Auth::guard('admin')->attempt($this->only('email','password'))) {
+    $request->is('admin/*') {
+      return redirect(route('admin.create'));
+    }
+  }
+  return redirect(route('login'));
+}
+if (!$request->expectsJson())
+
+public function show(Book $book) {
+  return view('admin.book.show', compact('book'));
+}
+
+protected $primaryKey = 'author_id';
+if (!Auth::guard('admin')->attempt($this->only('password','email'))) {
+  throw new Exception();
+} else {
+  Auth::login();
+}
+
+public function detail(): HasOne {
+  return $this->hasOne(AuthorDetail::class);
+}
+public function author() : BelongsTo {
+  return $this->belongsTo(Author::class);
+}
+
+s a migrate:refresh --seed
+
+readline(cin, str)
+getline
+
+http
+
+s a make:component ErrorMessage
