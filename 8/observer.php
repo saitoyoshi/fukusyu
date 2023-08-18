@@ -10,7 +10,7 @@ interface Subject {
 }
 
 class UserSubject implements Subject {
-    public $observers = [];
+    private $observers = [];
     public function attach($observer) {
         $this->observers[] = $observer;
     }
