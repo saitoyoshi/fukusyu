@@ -23,10 +23,12 @@ protected $primaryKey = 'author_id';
 $authors = Author::with('detail')->get();
 $books = Book::with(['authors', 'category'])->get;
 
+クエリビルダを、実行される前のクエリのオブジェクト
+コレクションは、クエリが実行された後の結果
+メソッドは、クエリビルダ
+プロパティは、コレクション
 
-
-
-
+string.at(i)
 
 
 
