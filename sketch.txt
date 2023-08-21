@@ -1,5 +1,8 @@
 s a make:factory AuthorFactory
 
+N個のアイテムからいくつか選ぶ方法　整数値
+N個の集合の部分集合をすべて列挙
+
 definition() {
   return [
     'author_id' => Author::factory(),
@@ -11,6 +14,7 @@ run() {
   //Author::factory(5)->create();
   AuthorDetail::factory(5)->create();
 }
+N個のアイテムから
 databaseSeeder
 $this->call(AuthorsTableSeeder::class);
 s a db:seed
@@ -24,6 +28,17 @@ public function show(string $id) {
 Route::get('admin/book/{id}',[BookContoller::class, 'show]);
 
 10^9より大きいとき
+
+N個のアイテムからいくつか選ぶ方法
+整数値
+
+すべてのパターンを整数値と対応づける
+ｎ個の要素からなる集合の部分集合をすべて調べ上げる
+explode(" ", $str);
+
+public function authors(): BelongsToMany {
+  return $this->belongsToMany(Book::class)->withTimestamps();
+}
 public function books(): HasMany {
   return $this->hasMany(Book::class);
 }
