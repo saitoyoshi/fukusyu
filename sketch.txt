@@ -1,3 +1,29 @@
+s a make:factory AuthorFactory
+
+definition() {
+  return [
+    'author_id' => Author::factory(),
+    'email' => fake()->uniq()->safeEmail(),
+    'address' => fake()->address(),
+  ];
+}
+run() {
+  //Author::factory(5)->create();
+  AuthorDetail::factory(5)->create();
+}
+databaseSeeder
+$this->call(AuthorsTableSeeder::class);
+s a db:seed
+
+s a make:request BookPostRequest
+
+public function show(string $id) {
+  $book = Book:findOrFail($id);
+  return $book;
+}
+Route::get('admin/book/{id}',[BookContoller::class, 'show]);
+
+10^9より大きいとき
 public function books(): HasMany {
   return $this->hasMany(Book::class);
 }
