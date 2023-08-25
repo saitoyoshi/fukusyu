@@ -1,5 +1,7 @@
+->middleware('guest') ログイン画面、新規登録
+->middleware('auth')　ログアウト
 $books = Book:where(['authors', 'category'])->get();
-
+ミドルウェア　ガード　middleware('auth:admin')
 str_replace('nani','dousuru','target');
 str_replace('-','/',$date);
 
