@@ -1,3 +1,21 @@
+N個の集合のすべての部分集合を列挙
+N個のなかからの選び方と、数値を対応付け
+
+public function redirectTo(Request $request) {
+  if (!Auth::guard('admin')->attempt($this->only('email','password))) {
+    if ($request->is('admin/*')) {
+      return redirect(route('admin.create'));
+    }
+    return redirect(route('login'));
+  }
+}
+
+if (! $request->expectsJson()) {
+  if ($request->is('admin/*')) {
+    return route('admin.create');
+  }
+  return route('login');
+}
 ->middleware('guest') ログイン画面、新規登録
 ->middleware('auth')　ログアウト
 $books = Book:where(['authors', 'category'])->get();
@@ -18,6 +36,15 @@ s a make:factory AuthorFactory
 N個のアイテムからいくつか選ぶ方法　整数値
 N個の集合の部分集合をすべて列挙
 
+protected function redirectTo(Request $request): ?string
+ {
+  if (!$request->expectsJson()) {
+    if ($request->is('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login');
+  }
+ }
 definition() {
   return [
     'author_id' => Author::factory(),
@@ -33,6 +60,15 @@ N個のアイテムから
 databaseSeeder
 $this->call(AuthorsTableSeeder::class);
 s a db:seed
+
+protected function redirectTo(Request $request): ?string {
+  if (!$request->expectsJson()) {
+    if ($request->is('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login');
+  }
+}
 
 s a make:request BookPostRequest
 
