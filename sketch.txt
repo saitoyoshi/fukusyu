@@ -1061,13 +1061,25 @@ kレクション
 
 
 
+public function books(): HasMany {
+  return $this->hasMany(Book::class);
+}
+public function category(): BelongsTo {
+  return $this->belongsTo(Category::class);
+}
 
 
+s a make:migration create_message_table --create=messages
 
 
-
-
-
+protected function redirectTo(Request $request): ?string {
+  if (!$request->expectsJson()) {
+    if ($request->is('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login');
+  }
+}
 
 クエリビルダ：クエリを実行する前のオブジェクト
 コレクション：集合で、便利なメソッドがある。モデルのあつまり
