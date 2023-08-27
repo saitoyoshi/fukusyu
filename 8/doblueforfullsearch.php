@@ -1,8 +1,8 @@
 <?php
 
-$values = [0,1,2];
+$values = ['a','b','c'];
 for ($i = 0; $i < count($values); $i++) {
     for ($j = $i+1; $j < count($values); $j++) {
-        echo $i . '-' . $j . PHP_EOL;
+        echo $values[$i] . '-' . $values[$j] . PHP_EOL;
     }
 }
