@@ -1,3 +1,30 @@
+DB定義のヴァージョン管理のようなもの
+クエリが実行されるまえのオブジェクト
+クエリをジッs校するメソッドで返される配列のようなもの
+$errors
+@if ($errors->any())
+  @foreach ($errors->all() as $e)
+    {{ $e }}
+  @endforeach
+@endif
+protected function redirectTo(Request $request): ?string {
+  if (!$request->expectsJson()) {
+    if ($request->is('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login');
+  }
+}
+public function books(): BelongsToMany {
+  return $this->belongsToMany(Book::class);
+}
+attach()
+$books = Book::all();
+$authors = Author::all();
+foreach ($books as $book) {
+  $authorIds = $authors->random(2)->pluck('id')->all();
+  $book->authors()->attach($authorIds);
+}
 N個の集合のすべての部分集合を列挙
 N個のなかからの選び方と、数値を対応付け
 
