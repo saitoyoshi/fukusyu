@@ -1,3 +1,71 @@
+$authors = Author::with('detail')->get();
+
+public function authors() {
+  return $this->belongsToMany(Author::class);
+}
+value="{{ old('title') }}"
+アルファベット順、先頭文字から、等しい
+$books = Book::with(['authors','category'])->get()
+get()を忘れやすい
+
+
+public function store(Request $request) {
+  ...
+  return route('book.index')->with('message', //  単にURLを生成する。　$book->title . 'を登録しました');
+  リンクやアクションURL
+}
+public function store(R $r) {
+
+  return redirect(route('book.index'));
+}
+
+
+protected function redirectTo(Request $request) {
+  (! $request->expectsJson()) {
+    if ($request->id('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login');
+  }
+}
+
++
+
+s a make:factory AuthorFactory
+
+return [
+  'name' => fake()->name,
+];
+
+Author::factory(3)->create();
+
+$this->call(AuthorsTableSeeder);
+
+s a db:seed
+
+N個の集合のすべての部分集合を列挙
+整数とN個の集合からの選び方を対応ずける
+
+public function store(Request $request) {
+  $book = new Book();
+  $book->category_id = $request->category_id;
+  $book->title = $request->title;
+  $book->price = $request->price;
+  $book->save();
+  return $book;
+}
+
+上下のボックスと、テキストに影響を与えない
+
+クラスとテーブルが対応し、クラスを通してDBを操作
+クエリをメソッドにより、簡単に実行できる
+文や区をビルドするための各種メソッド
+1クラスであらゆるテーブル操作
+クエリが実行されるまえのオブジェクト
+
+プロパティは、コレクション
+メソッドは、クエリビルダ
+
 DB定義のヴァージョン管理のようなもの
 クエリが実行されるまえのオブジェクト
 クエリをジッs校するメソッドで返される配列のようなもの
