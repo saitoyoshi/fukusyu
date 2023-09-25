@@ -1,5 +1,42 @@
-$authors = Author::with('detail')->get();
+public function show() {
+  return view('admin.book.show', compact('book'));
+}
 
+->middleware('guest')->
+->middlware('auth')->
+
+->middleware('guest:admin');
+->middleware('auth:admin');
+
+デザインパターンの一種、再利用性やテストがしやすくなる
+依存しているものが、なにかを知らなくていい
+
+return redirect(route('book.index'))->with('message', $book->title . 'を登録しました');
+
+getline(cin,string);
+
+->whereNumber('id')->name('book.show');
+親情報を取得した時点でk情報も取得することで、
+s a make:seeder CategoriesTAbleSeeder
+データを取得する場合に、どうじに、データをとってきて、N+1問題を回避
+$index = array_search($arr,$val);
+$index = array_search($needle,$haystack,$restrict=false);
+実行される前のクエリ自体を表す
+クエリを実行するメソッドの結果はコレクション
+ビルダはそのSQLを実行するまえのオブジェクト、コレクションは、実際にSQLを実行して帰ってきた、モデルの配列のようなもの
+->middleware('guest:admin')
+->middleware('auth:admin')
+$index = array_search($needle,$haystack,$restrict=false);
+$category = Category:find(1);
+$category->save();
+$category->findOrFail(3);
+$categories = Category::all();
+$category = Category::where('title','=','programming')->get();
+$category->update();
+$category->delete();
+<a href="{{ route('book.show', $book) }}">{{$book->title}}</a>
+$authors = Author::with('detail')->get();
+up
 public function authors() {
   return $this->belongsToMany(Author::class);
 }
