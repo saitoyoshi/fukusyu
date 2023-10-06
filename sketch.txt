@@ -1,3 +1,6 @@
+s a db:seed --class=SpecifiedSeeder
+
+
 ORMオブジェクトリレーショナルマッパー
 クラスとテーブルが対応し、クラスを通してDBを操作する
 開発者が直接SQLを書かなくていい。
