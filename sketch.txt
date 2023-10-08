@@ -1,4 +1,7 @@
+s a make:migration create~table
+$table->string('title',100);
 s a db:seed --class=SpecifiedSeeder
+
 
 
 ORMオブジェクトリレーショナルマッパー
