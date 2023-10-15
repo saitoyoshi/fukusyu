@@ -1,9 +1,33 @@
+フレームワークが、内部インスタンス化してくれるので、味噌っど呼び出しがシンプルにあんる
+
+インスタンス化の処理を書かないで、メソッドを呼び出す仕組み
+アプリケーション内部でインスタンス化して実行される
+複雑なインスタンス化の処理を隠蔽し、シンプルにメソッドをよびだす
 $this->~('login_id','password') {
 
 }
-
+s a make:seeder ~AuthorTableSeeder
+definition() {
+  return [
+    'title' => fake()->name(),
+  ];
+}
+DatabaseSeederにAuthorsTableSeederを登録
+s a db:seed
+ng:s a list:routes
+s a route:list
+trim()
+col-sm-8,col-sm-4
+２重フォーループで全探索
+内部ループは外部ループのカウンタ変数のプラス位置で初期化する
+definition() {
+  return [
+    'randomIds' => fake()->radomDigit(),
+  ];
+}
+共通設定、DB競っていなど、あとログとか
 if (! Auth::guard('admin')->attempt($this->only('login_id','Password')))
-
+アプリケーション固有の処理
 DB非依存メソッド
 HTTP非依存のメソッド
 
