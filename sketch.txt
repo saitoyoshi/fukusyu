@@ -1,6 +1,22 @@
+Ng:up,table
+s a make:seeder ~Seeder
+Schema::create
+Schema::table
+s a make:migration create_message_table --create=messages
+クエリビルダかコレクションの違い
+s a make:controller BookContoller
+s a meke:component BookTable --view
+DBのデータを初期化する、テストデータを挿入しやすくる
 フレームワークが、内部インスタンス化してくれるので、味噌っど呼び出しがシンプルにあんる
-
-インスタンス化の処理を書かないで、メソッドを呼び出す仕組み
+s a migrate:rollback
+definition() {
+  return [
+    'email' => fake()->safeEmail(),
+  ];
+}
+array_reverse($a);
+SQLを実行する前のオブジェクト、コレクションはモデルの配列のようなもの、クエリビルダを実行するメソッドから返される
+の処理を書かないで、メソッドを呼び出す仕組み
 アプリケーション内部でインスタンス化して実行される
 複雑なインスタンス化の処理を隠蔽し、シンプルにメソッドをよびだす
 $this->~('login_id','password') {
