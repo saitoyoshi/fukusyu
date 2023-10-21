@@ -1,3 +1,85 @@
+public function rules(): array {
+  return [
+    'category_id' => 'required|exists:categories,id',
+    'title' => 'required|uniq:books|max:100',
+    'price' => 'numeric|min:1|max:99999'
+  ];
+}
+public function show(Book $book):View {
+  return view('admin.book.show',compact('book'));
+}
+store($request): RedirectResponse {
+  return redirect(route('book.index'));
+}
+string.at(i);
+$errors;
+@foreach ($errors->any() as $e)
+  {{$e}}
+@endforeach
+$primaryKey ='author_id';
+create() {
+  $categories = Category::all();
+  return view('admin.book.create',compact('categories'));
+}
+$books = Book:all();
+$authors = Author::all();
+foreach ($books as $book) {
+  //$ids = $authors->random()->pluck('id')->all();
+  $authorIds = $authors->random(2)->pluck('id')->all();
+  $book->authors()->attach($authorIds);
+  $book->relation($ids);
+}
+redirectTo() {
+  if ($this->is('admin/*')) {
+    return redirect('admin.create');
+  }
+  return redirect('login');
+}
+public function detail() {
+  return $this->hasOne(AuthorDetail::class);
+}
+definition() {
+  return [
+    'author_id' => Author::factory(),
+    'email' => fake()->safeEmail()->uniq(),
+    'address' => fake()->address(),
+  ];
+}
+public function run() {
+  //AuthorDetail::create(3)->factory();
+  AuthorDetail::factory(5)->create();
+}
+public function author() {
+  return $this->belongsTo(Author::class);
+}
+if (!Auth::guard('admin')->attempt($this->only('login_id','password'))) {
+
+}
+数値と選び方
+Route::get(BookContoller::class,'show')
+public function show($id) {
+  $b = Book::find($id);
+  return $b;
+}
+$table->foreginId('category_id')->constrained();
+Route::get('admin/book/{Id}',[BookContoller::class, 'show]);
+cloneしてきてDBを共有する、テストしやすい
+ｎ個の要素からなる集合の部分集合をすべて調べ上げる
+protected function redirectTo(Request $request): ?string {
+  if (! $request->expectsJson()) {
+    if ($request->is('admin/*')) {
+      return route('admin.create');
+    }
+    return route('login');
+  }
+}
+up() {
+  $table->dropColumn('author');
+}
+down() {
+  $table->string('author');
+}
+N個の中からの選び方と数値を対応ずけて、全探索
 Ng:up,table
 s a make:seeder ~Seeder
 Schema::create
