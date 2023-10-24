@@ -1,3 +1,15 @@
+状態が変更されると、依存するすべてのオブジェクトに通知されるようにする
+
+S状態が変化される可能性があるオブジェト
+オブザーバーを登録・削除するインターファイエスを提供
+
+O状態変化を監視するオジュケクト、通知を受け取るインターファイスを提供
+
+１がS
+多がO
+観察されるほうが状態を管理、変更発生したときに、登録されたOに通知を送る。Oha通知を受け取り、必要な処理実行
+s a make:factory AuthorFactory
+10^9以上の演算
 public function rules(): array {
   return [
     'category_id' => 'required|exists:categories,id',
