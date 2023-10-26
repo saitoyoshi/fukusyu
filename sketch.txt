@@ -1,3 +1,8 @@
+s a make:request BookPostRequest
+s a make:model Message
+ng:s.length
+size()
+getline(cin,String);
 状態が変更されると、依存するすべてのオブジェクトに通知されるようにする
 
 S状態が変化される可能性があるオブジェト
